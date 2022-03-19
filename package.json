@@ -1,0 +1,7 @@
+{
+  "name": "eventmanager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author":"Matheus Alves Albuquerque <math.albuquerque@outlook.com>"
+}

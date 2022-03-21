@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "author":"Matheus Alves Albuquerque <math.albuquerque@outlook.com>"
+  "author": "Matheus Alves Albuquerque <math.albuquerque@outlook.com>",
+  "devDependencies": {
+    "typescript": "^4.6.2"
+  }
 }

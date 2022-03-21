@@ -14,16 +14,16 @@ class Organizer {
   @Column()
   name: string;
 
-  @Column("business_type")
+  @Column({name:"business_type"})
   businessType: string;
 
   @Column()
   cnpj: string;
 
-  @Column("corporate_name")
+  @Column({name:"corporate_name"})
   corporateName: string;
 
-  @Column("phone_number")
+  @Column({name:"phone_number"})
   phoneNumber: Number;
 
   @CreateDateColumn()

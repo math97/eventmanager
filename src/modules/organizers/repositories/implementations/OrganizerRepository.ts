@@ -3,13 +3,13 @@ import { ICreateOrganizerDTO } from "../../dtos/ICreateOrganizerDTO";
 import { Organizer } from "../../entities/Organizer";
 import { IOrganizerRepository } from "../IOrganizerRepository";
 
-class OrganizerRepository implements IOrganizerRepository{
+class OrganizersRepository implements IOrganizerRepository{
   private repository: Repository<Organizer>;
 
   constructor() {
     this.repository = getRepository(Organizer);
   }
-  async create({name,cnpj,email,password,phoneNumber,businessType="empresa",corporateName}: ICreateOrganizerDTO):Promise<void> {
+  async create({name,cnpj,email,password,phoneNumber,businessType,corporateName}: ICreateOrganizerDTO):Promise<void> {
     const organizer =this.repository.create({name,cnpj,email,password,phoneNumber,businessType,corporateName})
 
     await this.repository.save(organizer);
@@ -17,4 +17,4 @@ class OrganizerRepository implements IOrganizerRepository{
 
 }
 
-export {OrganizerRepository}
+export {OrganizersRepository}

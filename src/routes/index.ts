@@ -1,10 +1,12 @@
 import {Router} from "express";
-import {organizerRoutes} from "./organizer.routes";
+import {organizersRoutes} from "./organizer.routes";
+import {usersRoute} from "./user.routes";
 import {authenticateRoutes} from "./authenticate.routes";
 
 const routes = Router();
 
-routes.use("/organizer",organizerRoutes);
+routes.use("/organizer",organizersRoutes);
+routes.use("/user",usersRoute);
 routes.use("/session",authenticateRoutes);
 
 

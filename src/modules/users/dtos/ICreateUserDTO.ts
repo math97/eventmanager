@@ -1,11 +1,9 @@
-interface ICreateOrganizerDTO {
+interface ICreateUserDTO {
   email: string;
   password: string;
   name: string;
   phoneNumber: number;
-  businessType: string;
-  cnpj: string;
-  corporateName: string;
+  cpf: string;
 }
 
-export {ICreateOrganizerDTO}
+export {ICreateUserDTO}

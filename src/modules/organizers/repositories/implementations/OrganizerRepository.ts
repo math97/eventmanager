@@ -21,6 +21,12 @@ class OrganizersRepository implements IOrganizerRepository{
     return organizer!;
   }
 
+  async findById(id:string):Promise<Organizer> {
+    const organizer = await this.repository.findOne(id);
+
+    return organizer!;
+  }
+
 }
 
 export {OrganizersRepository}

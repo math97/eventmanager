@@ -17,9 +17,8 @@ class OrganizersRepository implements IOrganizerRepository{
   }
   async findByEmail(email: string): Promise<Organizer> {
     const organizer = await this.repository.findOne({email});
-    if(!organizer) throw new Error('Organizer not found');
 
-    return organizer;
+    return organizer!;
   }
 
 }

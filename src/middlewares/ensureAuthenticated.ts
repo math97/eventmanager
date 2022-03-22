@@ -28,6 +28,9 @@ export async function ensureAuthenticated(
     const organizer = organizersRepository.findById(organizer_id);
 
     if (!organizer) throw new Error("User does not exists!");
+
+    request.organizer = { id:organizer_id}
+
     next();
   } catch {
     throw new Error("Invalid token!");

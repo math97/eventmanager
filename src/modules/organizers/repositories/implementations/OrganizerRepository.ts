@@ -9,10 +9,17 @@ class OrganizersRepository implements IOrganizerRepository{
   constructor() {
     this.repository = getRepository(Organizer);
   }
+
   async create({name,cnpj,email,password,phoneNumber,businessType,corporateName}: ICreateOrganizerDTO):Promise<void> {
     const organizer =this.repository.create({name,cnpj,email,password,phoneNumber,businessType,corporateName})
 
     await this.repository.save(organizer);
+  }
+  async findByEmail(email: string): Promise<Organizer> {
+    const organizer = await this.repository.findOne({email});
+    if(!organizer) throw new Error('Organizer not found');
+
+    return organizer;
   }
 
 }

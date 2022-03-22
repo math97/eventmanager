@@ -6,7 +6,7 @@
   "password":"eventpassword",
   "database":"eventmanager",
   "migrations":["./src/database/migrations/*.ts"],
-  "entities":["./src/modules/organizers/entities/*ts"],
+  "entities":["./src/modules/organizers/entities/*ts","./src/modules/users/entities/*ts"],
   "cli":{
     "migrationsDir":"./src/database/migrations"
   }

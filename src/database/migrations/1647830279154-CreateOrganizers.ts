@@ -51,6 +51,7 @@ export class CreateOrganizers1647830279154 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+      await queryRunner.dropTable("organizers");
     }
 
 }

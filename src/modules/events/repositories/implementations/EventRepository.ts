@@ -27,6 +27,13 @@ class EventsRepository implements IEventRepository{
 
     return events;
   }
+
+  async delete(organizer: Organizer, eventId: string): Promise<void> {
+    const eventExist = await this.repository.findOne({organizer,id:eventId});
+
+    if(eventExist) await this.repository.delete(eventId);   
+    else throw new Error("Event doesn't exist");
+  }
 }
 
 export {EventsRepository}

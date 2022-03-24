@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import {v4 as uuidV4} from "uuid";
+import { Organizer } from "../../organizers/entities/Organizer";
 
 @Entity("events")
 class Event {
@@ -20,6 +21,9 @@ class Event {
 
   @Column({name:"total_tickets"})
   totalTickets: Number;
+
+  @ManyToOne(() => Organizer, (organizer) => organizer.events)
+  organizer: Organizer
 
   @CreateDateColumn()
   created_at: Date;

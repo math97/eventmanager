@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import {v4 as uuidV4} from "uuid";
+import { Event } from "../../events/entities/Event";
 @Entity("organizers")
 class Organizer {
   @PrimaryColumn()
@@ -25,6 +26,9 @@ class Organizer {
 
   @Column({name:"phone_number"})
   phoneNumber: Number;
+
+  @OneToMany(() => Event, (event) => event.organizer)
+  events:Event[]
 
   @CreateDateColumn()
   created_at: Date;

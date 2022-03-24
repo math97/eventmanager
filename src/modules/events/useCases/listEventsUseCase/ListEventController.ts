@@ -7,7 +7,7 @@ class ListEventController {
   async handle(request:Request,response:Response):Promise<Response>{
     const listEventUseCase = container.resolve(ListEventUseCase);
 
-    const events = listEventUseCase.execute();
+    const events = await listEventUseCase.execute();
 
     return response.json(events);
   }

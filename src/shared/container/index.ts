@@ -8,6 +8,9 @@ import { IUserRepository } from "../../modules/users/repositories/IUserRepositor
 import { EventsRepository } from "../../modules/events/repositories/implementations/EventRepository";
 import { IEventRepository } from "../../modules/events/repositories/IEventRepository";
 
+import { ITicketRepository } from "../../modules/tickets/repositories/ITicketRepository";
+import { TicketsRepository } from "../../modules/tickets/repositories/implementations/TicketsRepository";
+
 container.registerSingleton<IOrganizerRepository>(
   "OrganizersRepository",
   OrganizersRepository
@@ -21,4 +24,9 @@ container.registerSingleton<IUserRepository>(
 container.registerSingleton<IEventRepository>(
   "EventsRepository",
   EventsRepository
+);
+
+container.registerSingleton<ITicketRepository>(
+  "TicketsRepository",
+  TicketsRepository
 );

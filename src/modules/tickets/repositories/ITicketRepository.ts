@@ -1,0 +1,5 @@
+interface ITicketRepository{
+  
+};
+
+export {ITicketRepository};

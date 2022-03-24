@@ -1,15 +1,17 @@
 import {Request,Response} from "express";
 import {container} from "tsyringe";
-import { ICreateEventDTO } from "../../dtos/ICreateEventDTO";
+import { ICreateEventRequestDTO } from "../../dtos/ICreateEventDTO";
 
 import {CreateEventUseCase} from "./CreateEventUseCase";
 
 class CreateEventController{
   async handle(request:Request,response:Response):Promise<Response>{
-    const data:ICreateEventDTO = request.body
+    const createEventData:ICreateEventRequestDTO = request.body
     const createEventUseCase = container.resolve(CreateEventUseCase);
 
-    await createEventUseCase.execute({...data});
+    const organizerId = request.organizer.id;
+
+    await createEventUseCase.execute({...createEventData,organizerId});
 
     return response.status(201).send();
   }

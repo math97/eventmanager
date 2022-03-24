@@ -10,6 +10,7 @@ export class CreateOrganizers1647830279154 implements MigrationInterface {
                 {
                   name: "id",
                   type: "uuid",
+                  isPrimary:true
                 },
                 {
                   name: "name",

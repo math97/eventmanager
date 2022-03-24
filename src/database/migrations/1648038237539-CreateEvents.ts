@@ -9,6 +9,7 @@ export class CreateEvents1648038237539 implements MigrationInterface {
                 {
                     name: "id",
                     type: "uuid",
+                    isPrimary:true
                   },
                   {
                     name: "name",

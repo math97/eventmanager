@@ -5,7 +5,7 @@ interface ICreateEventDTO {
   address: string;
   description: string;
   value: number;
-  totalTickets: number;
+  ticketsLimit: number;
   organizerId: string;
 }
 interface ICreateEventRequestDTO {
@@ -13,7 +13,7 @@ interface ICreateEventRequestDTO {
   address: string;
   description: string;
   value: number;
-  totalTickets: number;
+  ticketsLimit: number;
 }
 
 interface ICreateEventRepositoryDTO {
@@ -21,7 +21,7 @@ interface ICreateEventRepositoryDTO {
   address: string;
   description: string;
   value: number;
-  totalTickets: number;
+  ticketsLimit: number;
   organizer: Organizer;
 }
 

@@ -10,12 +10,12 @@ class CreateEventUseCase {
     @inject("OrganizersRepository")
     private organizersRepository:IOrganizerRepository){ }
   
-  async execute({name,address,description,totalTickets,value,organizerId}:ICreateEventDTO):Promise<void>{
+  async execute({name,address,description,ticketsLimit,value,organizerId}:ICreateEventDTO):Promise<void>{
     try {  
       
       const organizer = await this.organizersRepository.findById(organizerId);      
 
-      await this.eventsRepository.create({name,address,description,totalTickets,value,organizer})
+      await this.eventsRepository.create({name,address,description,ticketsLimit,value,organizer})
 
     } catch (error) {
       console.log(error);  

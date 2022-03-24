@@ -19,8 +19,11 @@ class Event {
   @Column()
   value: Number;
 
-  @Column({name:"total_tickets"})
-  totalTickets: Number;
+  @Column({name:"tickets_limit"})
+  ticketsLimit: Number;
+
+  @Column({name:"tickets_sold"})
+  ticketsSold: Number;
 
   @ManyToOne(() => Organizer, (organizer) => organizer.events)
   organizer: Organizer

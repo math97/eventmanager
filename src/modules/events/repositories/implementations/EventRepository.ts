@@ -10,9 +10,9 @@ class EventsRepository implements IEventRepository{
   constructor() {
     this.repository = getRepository(Event);
   }
-  async create({organizer,name,description,address,totalTickets,value}: ICreateEventRepositoryDTO): Promise<void> {
+  async create({organizer,name,description,address,ticketsLimit,value}: ICreateEventRepositoryDTO): Promise<void> {
     
-    const event =this.repository.create({name,description,address,totalTickets,value,organizer})
+    const event =this.repository.create({name,description,address,ticketsLimit,value,organizer})
 
     await this.repository.save(event);
   }

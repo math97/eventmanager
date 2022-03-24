@@ -23,11 +23,11 @@ export async function ensureOrganizerAuthenticated(
       token,
       "179d1e5dfc5ac8ea3e4f0d4887890e0e"
     ) as IPayload;
-
+    
     const organizersRepository = new OrganizersRepository();
-    const organizer = organizersRepository.findById(organizer_id);
+    const organizer = await organizersRepository.findById(organizer_id);    
 
-    if (!organizer) throw new Error("User does not exists!");
+    if (!organizer) throw new Error("Organizer does not exists!");
 
     request.organizer = { id:organizer_id}
 

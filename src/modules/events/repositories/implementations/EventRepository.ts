@@ -1,4 +1,5 @@
 import { getRepository, Repository } from "typeorm";
+import { Organizer } from "../../../organizers/entities/Organizer";
 import {  ICreateEventRepositoryDTO } from "../../dtos/ICreateEventDTO";
 import { Event } from "../../entities/Event";
 import { IEventRepository } from "../IEventRepository";
@@ -17,6 +18,12 @@ class EventsRepository implements IEventRepository{
   }
   async list(): Promise<Event[]> {
     const events =await this.repository.find();
+
+    return events;
+  }
+
+  async findByOrganizer(organizer: Organizer): Promise<Event[]> {
+    const events = await this.repository.find({organizer})
 
     return events;
   }

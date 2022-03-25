@@ -19,7 +19,7 @@ class User {
   cpf: string;
 
   @Column({name:"phone_number"})
-  phoneNumber: Number;
+  phoneNumber: number;
 
   @CreateDateColumn()
   created_at: Date;

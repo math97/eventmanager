@@ -25,7 +25,7 @@ class Organizer {
   corporateName: string;
 
   @Column({name:"phone_number"})
-  phoneNumber: Number;
+  phoneNumber: number;
 
   @OneToMany(() => Event, (event) => event.organizer)
   events:Event[]

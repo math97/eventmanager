@@ -14,10 +14,10 @@ export class CreateTickets1648153257924 implements MigrationInterface {
                 type:"uuid"
             },
             {
-                name:"usersId",
-                type:"uuid",
-                isArray:true
-            }
+                name: "created_at",
+                type: "timestamp",
+                default: "now()",
+              },
         ]}))
     }
 

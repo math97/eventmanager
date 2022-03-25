@@ -1,5 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { IEventRepository } from "../../../events/repositories/IEventRepository";
+import { IUserRepository } from "../../../users/repositories/IUserRepository";
+import { ICreateTicketDTO } from "../../dtos/ICreateTicketDTO";
 import { ITicketRepository } from "../../repositories/ITicketRepository";
 
 @injectable()
@@ -9,12 +11,15 @@ class CreateTicketUseCase{
     private ticketsRepository:ITicketRepository,
     @inject("EventsRepository")
     private eventsRepository:IEventRepository,
+    @inject("UsersRepository")
+    private usersRepository:IUserRepository,
     ){}
 ;
-    async execute(eventId:string):Promise<void>{
+    async execute({eventId,userId}:ICreateTicketDTO):Promise<void>{
       const event = await this.eventsRepository.updatedTicketSold(eventId);
+      const user = await this.usersRepository.findById(userId);
 
-      await this.ticketsRepository.create(event);
+      await this.ticketsRepository.create(event,user);
     }
 };
 

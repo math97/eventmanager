@@ -1,5 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 import { Event } from "../../../events/entities/Event";
+import { User } from "../../../users/entities/User";
 import { Ticket } from "../../entities/Ticket";
 import { ITicketRepository } from "../ITicketRepository";
 
@@ -10,8 +11,8 @@ class TicketsRepository implements ITicketRepository{
     this.repository = getRepository(Ticket);
   }
 
-  async create(event: Event): Promise<void> {
-    const ticket = this.repository.create({event})
+  async create(event: Event,user:User): Promise<void> {
+    const ticket = this.repository.create({event,user})
 
     await this.repository.save(ticket);
   }

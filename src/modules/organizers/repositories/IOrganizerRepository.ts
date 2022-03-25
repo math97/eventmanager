@@ -5,7 +5,7 @@ import { Organizer } from "../entities/Organizer";
 interface IOrganizerRepository {
   create(data:ICreateOrganizerDTO):Promise<void>;
   findByEmail(email:string):Promise<Organizer | undefined>;
-  findById(id:string):Promise<Organizer>;
+  findById(id:string):Promise<Organizer | undefined>;
   update(data:IUpdateOrganizerDTO):Promise<Organizer>;
 }
 

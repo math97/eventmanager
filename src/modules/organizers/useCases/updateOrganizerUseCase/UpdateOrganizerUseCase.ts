@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import AppError from "../../../../errors/AppError";
 import { IUpdateOrganizerDTO } from "../../dtos/IUpdateOrganizerDTO";
 import { Organizer } from "../../entities/Organizer";
 import { IOrganizerRepository } from "../../repositories/IOrganizerRepository";
@@ -12,7 +13,7 @@ class UpdateOrganizerUseCase {
   async execute({id,name,cnpj,email,password,phoneNumber,corporateName}:IUpdateOrganizerDTO):Promise<Organizer>{
       const isAnotherOrganizer = await this.organizersRepository.findByEmail(email);
   
-      if (isAnotherOrganizer) throw new Error("Email already taken");
+      if (isAnotherOrganizer && isAnotherOrganizer.id === id) throw new AppError("Email already taken");
   
       const organizerUpdated = await this.organizersRepository.update({id,name,cnpj,email,password,phoneNumber,corporateName})
 

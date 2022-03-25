@@ -31,10 +31,10 @@ class OrganizersRepository implements IOrganizerRepository{
     return organizer;
   }
 
-  async findById(id:string):Promise<Organizer> {
+  async findById(id:string):Promise<Organizer | undefined> {
     const organizer = await this.repository.findOne(id);
 
-    return organizer!;
+    return organizer;
   }
 
   async update({id,cnpj,email,name,password,phoneNumber,corporateName}:IUpdateOrganizerDTO):Promise<Organizer>{

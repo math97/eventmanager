@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { sign } from "jsonwebtoken";
 import { compare } from "bcryptjs";
 import { IOrganizerRepository } from "../../repositories/IOrganizerRepository";
+import AppError from "../../../../errors/AppError";
 
 interface IRequest {
   email:string,
@@ -25,11 +26,11 @@ class AuthenticateOrganizerUseCase {
   async execute({email,password}:IRequest):Promise<IResponse>{
     const organizer = await this.organizersRepository.findByEmail(email);
 
-    if (!organizer) throw new Error("Email or password incorrect!");
+    if (!organizer) throw new AppError("Email or password incorrect!",401);
 
     const passwordMatch = await compare(password,organizer.password);
 
-    if (!passwordMatch) throw new Error("Email or password incorrect!");
+    if (!passwordMatch) throw new AppError("Email or password incorrect!",401);
 
     const token = sign({}, "179d1e5dfc5ac8ea3e4f0d4887890e0e", {
       subject: organizer.id,

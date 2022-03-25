@@ -36,10 +36,18 @@ class EventsRepository implements IEventRepository{
   }
 
   async delete(organizer: Organizer, eventId: string): Promise<void> {
-    const eventExist = await this.repository.findOne({organizer,id:eventId});
+    try {
+      const eventExist = await this.repository.findOne({organizer,id:eventId});
 
-    if(eventExist) await this.repository.delete(eventId);   
-    else throw new Error("Event doesn't exist");
+      if(eventExist) await this.repository.delete(eventId);   
+      else throw new AppError("Event doesn't exist",404);
+    } catch (error) {
+      if(error instanceof QueryFailedError) {
+        if(error.driverError.code === '22P02') throw new AppError("Invalid input",400);
+        else throw new AppError("Error on delete",400);
+      }
+      else throw error;
+    }
   }
 
   async findById(eventId: string): Promise<Event> {

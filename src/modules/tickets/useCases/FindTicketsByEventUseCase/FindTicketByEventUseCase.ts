@@ -20,5 +20,4 @@ class FindTicketsByEventUseCase{
       return tickets;
     }
 };
-
 export {FindTicketsByEventUseCase}

@@ -20,10 +20,10 @@ class User {
   cpf: string;
 
   @Column({name:"phone_number"})
-  phoneNumber: number;
+  phoneNumber?: number;
 
   @OneToMany(() => Ticket, (ticket) => ticket.user)
-  tickets:Ticket[]
+  tickets?:Ticket[]
 
   @CreateDateColumn()
   created_at: Date;

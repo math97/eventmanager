@@ -15,6 +15,15 @@ class TicketsRepository implements ITicketRepository{
 
     await this.repository.save(ticket);
   }
+  async findByEvent(event: Event): Promise<Ticket[]> {
+    const tickets = await this.repository.find(
+      {
+        relations:['event'],
+        where:{event:{id:event.id}}
+    });
+    
+    return tickets;
+  }
 };
 
 export {TicketsRepository};

@@ -1,4 +1,5 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository, QueryFailedError, Repository } from "typeorm";
+import AppError from "../../../../errors/AppError";
 import { Organizer } from "../../../organizers/entities/Organizer";
 import {  ICreateEventRepositoryDTO } from "../../dtos/ICreateEventDTO";
 import { Event } from "../../entities/Event";
@@ -11,13 +12,19 @@ class EventsRepository implements IEventRepository{
     this.repository = getRepository(Event);
   }
   async create({organizer,name,description,address,ticketsLimit,value}: ICreateEventRepositoryDTO): Promise<void> {
-    
-    const event =this.repository.create({name,description,address,ticketsLimit,value,organizer})
-
-    await this.repository.save(event);
+    try {
+      const event =this.repository.create({name,description,address,ticketsLimit,value,organizer})
+      await this.repository.save(event);
+    } catch (error) {
+      if(error instanceof QueryFailedError) {
+        if(error.driverError.code === '23502') throw new AppError("missing data",400);
+        else throw new AppError("Error on insert",400);
+      }
+      else throw error;
+    }
   }
   async list(): Promise<Event[]> {
-    const events =await this.repository.find();
+    const events = await this.repository.find();
 
     return events;
   }

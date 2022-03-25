@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import AppError from "../../../../errors/AppError";
 import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
 import { User } from "../../entities/User";
 import { IUserRepository } from "../../repositories/IUserRepository";
@@ -10,14 +11,13 @@ class UpdateUserUseCase {
     private usersRepository:IUserRepository){}
   
   async execute({id,name,cpf,email,password,phoneNumber}:IUpdateUserDTO):Promise<User>{
-      const isAnotherUser = await this.usersRepository.findByEmail(email);
+      const userByEmail = await this.usersRepository.findByEmail(email);
   
-      if (isAnotherUser) throw new Error("Email already taken");
+      if (userByEmail && userByEmail.id !==id) throw new AppError("Email already taken",400);
   
       const userUpdated = await this.usersRepository.update({id,name,cpf,email,password,phoneNumber})
 
       return userUpdated!;
-
   }
 }
 

@@ -32,10 +32,10 @@ class UsersRepository implements IUserRepository{
     return user;
   }
 
-  async findById(id:string):Promise<User> {
+  async findById(id:string):Promise<User | undefined> {
     const user = await this.repository.findOne(id);
 
-    return user!;
+    return user;
   }
 
   async update({id,cpf,email,name,password,phoneNumber}:IUpdateUserDTO):Promise<User>{

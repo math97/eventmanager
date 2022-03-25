@@ -1,4 +1,5 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository, QueryFailedError, Repository, TypeORMError } from "typeorm";
+import AppError from "../../../../errors/AppError";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
 import { User } from "../../entities/User";
@@ -12,14 +13,23 @@ class UsersRepository implements IUserRepository{
   }
 
   async create({name,cpf,email,password,phoneNumber}: ICreateUserDTO):Promise<void> {
-    const user =this.repository.create({name,cpf,email,password,phoneNumber})
-
-    await this.repository.save(user);
+    try {
+      const user =this.repository.create({name,cpf,email,password,phoneNumber})
+  
+      await this.repository.save(user);
+      
+    } catch (error) {
+      if(error instanceof QueryFailedError) {
+        if(error.driverError.code === '23502') throw new AppError("missing data",400);
+        else throw new AppError("Error on insert",400);
+      }
+      else throw error;
+    }
   }
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User | undefined> {
     const user = await this.repository.findOne({email});
 
-    return user!;
+    return user;
   }
 
   async findById(id:string):Promise<User> {

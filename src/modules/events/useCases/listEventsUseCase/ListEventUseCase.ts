@@ -12,8 +12,6 @@ class ListEventUseCase {
     const events = await this.eventsRepository.list();
 
     return events;
-  }
-  
+  } 
 }
-
 export {ListEventUseCase};

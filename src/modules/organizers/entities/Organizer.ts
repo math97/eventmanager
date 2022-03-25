@@ -25,10 +25,10 @@ class Organizer {
   corporateName: string;
 
   @Column({name:"phone_number"})
-  phoneNumber: number;
+  phoneNumber?: number;
 
   @OneToMany(() => Event, (event) => event.organizer)
-  events:Event[]
+  events?:Event[]
 
   @CreateDateColumn()
   created_at: Date;

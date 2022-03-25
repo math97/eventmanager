@@ -1,4 +1,5 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository, QueryFailedError, Repository } from "typeorm";
+import AppError from "../../../../errors/AppError";
 import { ICreateOrganizerDTO } from "../../dtos/ICreateOrganizerDTO";
 import { IUpdateOrganizerDTO } from "../../dtos/IUpdateOrganizerDTO";
 import { Organizer } from "../../entities/Organizer";
@@ -12,14 +13,22 @@ class OrganizersRepository implements IOrganizerRepository{
   }
 
   async create({name,cnpj,email,password,phoneNumber,businessType,corporateName}: ICreateOrganizerDTO):Promise<void> {
-    const organizer =this.repository.create({name,cnpj,email,password,phoneNumber,businessType,corporateName})
+    try {
+      const organizer =this.repository.create({name,cnpj,email,password,phoneNumber,businessType,corporateName})
 
-    await this.repository.save(organizer);
+      await this.repository.save(organizer);
+    } catch (error) {
+      if(error instanceof QueryFailedError) {
+        if(error.driverError.code === '23502') throw new AppError("missing data",400);
+        else throw new AppError("Error on insert",400);
+      }
+      else throw error;
+    }
   }
-  async findByEmail(email: string): Promise<Organizer> {
+  async findByEmail(email: string): Promise<Organizer | undefined> {
     const organizer = await this.repository.findOne({email});
 
-    return organizer!;
+    return organizer;
   }
 
   async findById(id:string):Promise<Organizer> {

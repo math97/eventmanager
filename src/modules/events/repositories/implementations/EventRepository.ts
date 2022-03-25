@@ -34,6 +34,25 @@ class EventsRepository implements IEventRepository{
     if(eventExist) await this.repository.delete(eventId);   
     else throw new Error("Event doesn't exist");
   }
+
+  async findById(eventId: string): Promise<Event> {
+    const event = await this.repository.findOne(eventId);
+
+    if(event) return event;
+    else throw new Error("Event doesn't exist");  
+  }
+
+  async updatedTicketSold(eventId: string):Promise<Event> {
+    const event = await this.repository.findOne(eventId);
+
+    if(!event) throw new Error("Event not found");
+
+    event.ticketsSold =+ event.ticketsSold + 1;
+
+    await this.repository.save(event);
+
+    return event;
+  }
 }
 
 export {EventsRepository}

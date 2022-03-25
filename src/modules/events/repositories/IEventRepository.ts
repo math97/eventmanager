@@ -7,7 +7,9 @@ interface IEventRepository {
   create(data:ICreateEventRepositoryDTO):Promise<void>;
   list():Promise<Event[]>;
   findByOrganizer(organizer: Organizer):Promise<Event[]>;
+  findById(eventId: string):Promise<Event>;
   delete(organizer: Organizer, eventId: string):Promise<void>;
+  updatedTicketSold(eventId:string):Promise<Event>;
 }
 
 export {IEventRepository}

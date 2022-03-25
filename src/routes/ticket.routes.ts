@@ -13,8 +13,8 @@ const createTicketController = new CreateTicketController();
 const findTicketsByEventController = new FindTicketsByEventController();
 const findTicketsByUserController = new FindTicketsByUserController();
 
-ticketRoutes.post("/",ensureUserAuthenticated, createTicketController.handle);
 ticketRoutes.get("/event", findTicketsByEventController.handle);
 ticketRoutes.get("/user",ensureUserAuthenticated, findTicketsByUserController.handle);
+ticketRoutes.post("/",ensureUserAuthenticated, createTicketController.handle);
 
 export { ticketRoutes };

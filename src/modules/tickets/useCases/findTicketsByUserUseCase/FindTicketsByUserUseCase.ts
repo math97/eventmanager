@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { Ticket } from "../../entities/Ticket";
 import { IUserRepository } from "../../../users/repositories/IUserRepository";
 import { ITicketRepository } from "../../repositories/ITicketRepository";
+import AppError from "../../../../errors/AppError";
 
 @injectable()
 class FindTicketsByUserUseCase{
@@ -14,6 +15,8 @@ class FindTicketsByUserUseCase{
   
     async execute(userId:string):Promise<Ticket[]>{
       const user = await this.usersRepository.findById(userId); 
+
+      if(!user) throw new AppError("user not found");
 
       const tickets = await this.ticketRepository.findByUser(user);
 

@@ -15,8 +15,8 @@ const findEventByOrganizeController = new FindEventByOrganizeController();
 const deleteEventController = new DeleteEventController();
 
 eventsRoute.get("/",listEventController.handle);
+eventsRoute.get("/organizer",ensureOrganizerAuthenticated,findEventByOrganizeController.handle);
 eventsRoute.post("/",ensureOrganizerAuthenticated,createEventController.handle);
 eventsRoute.delete("/",ensureOrganizerAuthenticated,deleteEventController.handle);
-eventsRoute.get("/organizer",ensureOrganizerAuthenticated,findEventByOrganizeController.handle);
 
 export {eventsRoute}

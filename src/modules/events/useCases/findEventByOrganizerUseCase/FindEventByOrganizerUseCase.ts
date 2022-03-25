@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import AppError from "../../../../errors/AppError";
 import { IOrganizerRepository } from "../../../organizers/repositories/IOrganizerRepository";
 import { IEventRepository } from "../../repositories/IEventRepository";
 
@@ -12,8 +13,9 @@ class FindEventByOrganizerUseCase{
 
     async execute(organizerId:string){
       const organizer = await this.organizerRepository.findById(organizerId);
-      const events = await this.eventsRepository.findByOrganizer(organizer);
+      if(!organizer) throw new AppError("organizer not exist",404);
 
+      const events = await this.eventsRepository.findByOrganizer(organizer);
       return events;
     }
 }
